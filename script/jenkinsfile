@@ -31,13 +31,6 @@ pipeline{
             }
 
         }
-        stage('upload artifact'){
-            steps{
-            sh 'curl -uadmin:AP36P6tFM6srf8krV25YNxF8TGH -T \
-            target/bio*.jar \
-            "http://3.218.247.78:8081/artifactory/geoapp/geo/bio_${BUILD_ID}.jar"'
-            }
-        }
         stage('docker login'){
             steps{
             sh 'aws ecr get-login-password --region us-east-1 \
@@ -62,6 +55,18 @@ pipeline{
             sh 'docker push 965662434281.dkr.ecr.us-east-1.amazonaws.com/utc-app-dev:v.$(BUILD_ID)'
         }
         }
+        stage('docker login 1'){
+            steps{
+                sh 'aws ecr get-login-password --region us-east-1 \
+                | docker login --username AWS --password-stdin 965662434281.dkr.ecr.us-east-1.amazonaws.com'
+            }
+        }
+        stage('git pull'){
+            steps{
+                sh 'git pull'
+            }
+        }
+        }    
 
-}
-}
+        }    
+
