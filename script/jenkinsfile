@@ -61,11 +61,7 @@ pipeline{
                 | docker login --username AWS --password-stdin 965662434281.dkr.ecr.us-east-1.amazonaws.com'
             }
         }
-        stage('git pull'){
-            steps{
-                sh 'git pull'
-            }
-        }
+        
         }    
 
         }    
